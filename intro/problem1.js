@@ -101,11 +101,11 @@ function main() {
 
   let angle = 0.0;
   let increment = 0.03;
-  let scale = parseFloat(document.getElementById("scaleBox").value);
   let text = document.getElementById("scaleBox");
+  let scale = text.value;
 
   var getScale = function(){
-    scale = parseFloat(document.getElementById("scaleBox").value);
+    scale = text.value;
   }
 
   // define an animation loop

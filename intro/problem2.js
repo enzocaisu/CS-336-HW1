@@ -8,12 +8,13 @@
 // (z will be zero by default).
 
 // A few global variables...
+var numSides = 3;
+var radial = 2*(Math.PI);
 var vertices = new Float32Array([
-  -0.5, -0.5,
-  0.5, -0.5,
-  0.5, 0.5,
-  -0.5, 0.5
-])
+  Math.cos(0), Math.sin(0),
+  Math.cos(radial/3), Math.sin(radial/3),
+  Math.cos(2*radial/3), Math.sin(3*radial/3)
+]);
 
 
 // the OpenGL context
@@ -35,17 +36,15 @@ function draw(numSides)
   gl.useProgram(shader);
 
   //create the new vertices
-  var newVertices = [0.0, 0.0];
-  var theta = (2 * Math.PI) / numSides;
+  vertices = [];
+  var theta = radial/numSides;
   for(var i = 0; i < numSides; i++){
-    newVertices.push(Math.cos(i * theta));
-    console.log(Math.cos(i*theta));
-    newVertices.push(Math.sin(i * theta));
-    console.log(Math.sin(i*theta));
+    vertices.push(Math.cos(i * theta), Math.sin(i * theta));
+    vertices.push([0, 1, 1, 0, -1, 0, 0, -1]);
   }
 
   //bind the vertices to the buffer
-  vertexbuffer = createAndLoadBuffer(newVertices);
+  vertexbuffer = createAndLoadBuffer(vertices);
   // bind the buffer
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexbuffer);
 
@@ -77,6 +76,8 @@ function draw(numSides)
 
 }
 
+
+
 // entry point when page is loaded
 function main() {
 
@@ -102,13 +103,13 @@ function main() {
   //draw();
 
   let text = document.getElementById("sidesBox");
-  let sides = text.value;
+  numSides = text.value;
 
   var getSides = function(){
-    sides = text.value;
-    draw(sides);
+    numSides = text.value;
+    draw(numSides);
   }
 
-  draw(sides);
+  draw(numSides);
   text.onchange = getSides();
 }
