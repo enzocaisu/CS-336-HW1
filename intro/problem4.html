@@ -1,0 +1,61 @@
+		<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>HW1 Q4 ECA</title>
+</head>
+
+<body>
+
+<script id="sqVertexShader" type="x-shader/x-vertex">
+	attribute vec4 a_Position;
+	void main()
+	{
+	  gl_Position = vec4(a_Position);
+	}
+</script>
+
+<script id="sqFragmentShader" type="x-shader/x-fragment">
+	// precision declaration required to use floats
+	precision mediump float;
+	uniform vec4 color;
+	void main()
+	{
+	  //gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+		gl_FragColor = color;
+	}
+</script>
+
+<script id="trVertexShader" type="x-shader/x-vertex">
+
+attribute vec4 a_Position;
+attribute vec4 a_Color;
+varying vec4 color;
+void main()
+{
+  color = a_Color;
+	gl_Position = vec4(a_Position);
+
+}
+</script>
+
+<script id="trFragmentShader" type="x-shader/x-fragment">
+// In a webgl fragment shader, float precision has to be specified before
+// any other variable declarations (in this case, "medium" precision)
+precision mediump float;
+varying vec4 color;
+void main()
+{
+  gl_FragColor = color;
+}
+</script>
+
+	<canvas id="theCanvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+		<script src="../util/cs336util.js"></script>
+		<script src="problem4.js"></script>
+		<script>window.onload = main</script>
+</body>
+</html>
