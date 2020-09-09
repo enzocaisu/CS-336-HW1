@@ -1,0 +1,42 @@
+<!--  Same as GL_example1a, but uses a uniform variable to set the
+color in the fragment shader. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Q4</title>
+</head>
+
+<body>
+	<canvas id="theCanvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+
+<script id="vertexShader" type="x-shader/x-vertex">
+
+attribute vec4 a_Position;
+void main()
+{
+  gl_Position = a_Position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+// precision declaration required to use floats
+precision mediump float;
+uniform vec4 color;
+void main()
+{
+  //gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+	gl_FragColor = color;
+}
+</script>
+
+		<script src="../util/cs336util.js"></script>
+		<script src="GL_example1a_uniform_color.js"></script>
+		<script>window.onload = main</script>
+</body>
+</html>
