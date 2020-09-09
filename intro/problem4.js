@@ -45,7 +45,7 @@ var colorbuffer;
 var trshader;
 var sqshader;
 
-function sqdraw()
+function sqdraw(color)
 {
   // bind the shader
   gl.useProgram(sqshader);
@@ -72,7 +72,8 @@ function sqdraw()
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   let index = gl.getUniformLocation(sqshader, "color");
-  gl.uniform4f(index, 1.0, 1.0, 0.0, 1.0);
+  gl.uniform4f(index, color[0], color[1], color[2], color[3]); //it just works
+  //else gl.uniform4f(index, 1.0, 1.0, 0.0, 1.0);
   //gl.uniform4fv(index, new Float32Array([0.0, 0.0, 1.0, 1.0]));
 
   // draw, specifying the type of primitive to assemble from the vertices
@@ -174,12 +175,27 @@ function main() {
   // shaders
   //draw();
 
+  var canvas = document.getElementById("theCanvas");
+
+  var color = new Float32Array([1.0, 1.0, 0.0, 1.0]);
+
+  canvas.onclick = function(event){
+    var rect = canvas.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = rect.bottom - event.clientY;
+    var width = canvas.width * 0.5; //width of triangle relative to canvas
+    var height = canvas.height * .75; //ditto
+    console.log("X: " +x+ " Y: " + y + " W: "+width + " H: " + height);
+    var trycolor = findRGB(x, y, width, height, colors);
+    if(trycolor) color = trycolor;
+  }
+
   // define an animation loop
   var animate = function() {
     // clear the framebuffer
     gl.clear(gl.COLOR_BUFFER_BIT);
     trdraw();
-    sqdraw();
+    sqdraw(color);
 
 	// request that the browser calls animate() again "as soon as it can"
     requestAnimationFrame(animate);

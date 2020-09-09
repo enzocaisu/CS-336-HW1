@@ -8,10 +8,12 @@
 <body>
 
 <script id="sqVertexShader" type="x-shader/x-vertex">
+	precision mediump float;
 	attribute vec4 a_Position;
+	uniform float shift;
 	void main()
 	{
-	  gl_Position = vec4(a_Position);
+	  gl_Position = vec4(a_Position.x + 0.5, a_Position.yzw);
 	}
 </script>
 
@@ -27,14 +29,16 @@
 </script>
 
 <script id="trVertexShader" type="x-shader/x-vertex">
-
+precision mediump float;
 attribute vec4 a_Position;
 attribute vec4 a_Color;
 varying vec4 color;
 void main()
 {
   color = a_Color;
-	gl_Position = vec4(a_Position);
+	//doing brute force positioning so bottom left is at 0, 0. could be more
+	//elegant by referencing canvas.
+	gl_Position = vec4(a_Position.x - 0.5, a_Position.y - .25, a_Position.zw);
 
 }
 </script>
@@ -55,6 +59,7 @@ void main()
     </canvas>
 
 		<script src="../util/cs336util.js"></script>
+		<script src="color_interpolator.js"></script>
 		<script src="problem4.js"></script>
 		<script>window.onload = main</script>
 </body>

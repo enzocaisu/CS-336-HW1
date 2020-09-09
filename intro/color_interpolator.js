@@ -26,14 +26,16 @@ function Color(r, g, b, a)
  * @param {Color[]} colors - colors of the three corners, counterclockwise
  *   from lower left
  * @return {Color} interpolated color at offset (x, y)
+ *
+ *
  */
 function findRGB(x, y, width, height, colors)
 {
-  var top = y/height;
-  var left = (width*height - (y * width)/2 - x*height) / (width * height);
-  var right = 1 - top - left;
-  var red = colors[0].r * left + colors[1].r * right + colors[2].r * top;
-  var green = colors[0].g * left + colors[1].g * right + colors[2].g * top;
-  var blue = colors[0].b * left + colors[1].b * right + colors[2].b * top;
-  return new Color(red, green, blue, 1.0);
+	var blue = y/height;
+	var red = 1.0 - (x)/(width) - (y)/(2.0 * height);
+	var green = 1.0 - blue - red;
+	var weights = new Float32Array([red, green, blue, 1.0]);
+	//console.log(weights[0] + " " + weights[1] + " " + weights[2] + " " + weights[3]);
+	if(red < 0 || green < 0 || blue < 0) return null;
+	return weights;
 }
