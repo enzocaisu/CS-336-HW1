@@ -155,12 +155,12 @@ function main() {
   gl = getGraphicsContext("theCanvas");
 
   // load and compile the shader pair
-  sqShader = createProgram(gl, 'sqVertexShader', 'sqFragmentShader');
-  trShader = createProgram(gl, 'trVertexShader', 'trFragmentShader');
+  sqshader = createProgram(gl, 'sqVertexShader', 'sqFragmentShader');
+  trshader = createProgram(gl, 'trVertexShader', 'trFragmentShader');
 
   // load the vertex data into GPU memory
-  sqVertexbuffer = createAndLoadBuffer(sqVertices);
-  trVertexbuffer = createAndLoadBuffer(trVertices);
+  sqvertexbuffer = createAndLoadBuffer(sqVertices);
+  trvertexbuffer = createAndLoadBuffer(trVertices);
 
   //load the color data into GPU memory
   colorbuffer = createAndLoadBuffer(colors);

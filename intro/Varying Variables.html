@@ -8,11 +8,10 @@
 <body>
 
 <script id="sqVertexShader" type="x-shader/x-vertex">
-
 	attribute vec4 a_Position;
 	void main()
 	{
-	  gl_Position = a_Position;
+	  gl_Position = vec4(a_Position);
 	}
 </script>
 
@@ -35,7 +34,7 @@ varying vec4 color;
 void main()
 {
   color = a_Color;
-  gl_Position = a_Position;
+	gl_Position = vec4(a_Position);
 
 }
 </script>
